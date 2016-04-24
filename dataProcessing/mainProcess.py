@@ -9,7 +9,7 @@ import pickle
 
 
 def main():
-    data = pd.read_csv('output/twitterDB_all.csv', header=None)  # read data
+    data = pd.read_csv('../output/twitterDB_all.csv', header=None)  # read data
     data.columns = ['tweet', 'city']
     data_clean = data.dropna()  # drop na
     data_clean.loc[:, 'senti_score'] = np.nan
