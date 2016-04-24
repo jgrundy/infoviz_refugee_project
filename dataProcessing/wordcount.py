@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from string import punctuation
 import operator
 import pandas as pd
@@ -14,18 +15,15 @@ def WordCount(dataframe, country, column_str):
     params: country: the column on which the dataframe is grouped by
     params: column_name_str: the column in which the str is stored
     '''
-    try:
-        j = reduce(lambda x, y: x + y,
-                   dataframe.groupby(country))
-    except IndexError:
-        print 'format: WordCount(dataframe, country, column_str)'
     dic = {}
-    for n in range(len(j) / 2):
-        dic[str(j[2 * n])] = j[2 * n + 1]
+    UniqueNames = dataframe.country.unique()
+    dic = {item: pd.DataFrame for item in UniqueNames}
+    for key in dic.keys():
+        dic[key] = dataframe[dataframe.country == key]
     dic2 = {}
-    for p in dic.iterkeys():
+    for p in dic.keys():
         dic2[p] = reduce(lambda x, y: x + y,
-                         dic[p][column_str])
+                         dic[p][column_str], '')
     wc = {}
     for k, v in dic2.iteritems():
         ls = dic2.get(k).lower().translate(None, punctuation).split(' ')
@@ -34,5 +32,5 @@ def WordCount(dataframe, country, column_str):
             freq[word] = ls.count(word)
             sorted_freq = sorted(freq.items(), key=operator.itemgetter(1),
                                  reverse=True)
-        wc[k] = sorted_freq
+            wc[k] = sorted_freq
     return wc
