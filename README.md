@@ -5,3 +5,10 @@ Project repository for Infoviz final project
 The Syrian Civil War has rained death upon Syria since its outbreak in March 2011, and forced tens of thousands of innocent citizens to fled their homeland and seek refugee in countries where they feel aliens. According to the [Syria Regional Refugee Response](http://data.unhcr.org/syrianrefugees/regional.php), in 2016 alone 31742 refugees left Syria. As the purpose of this project,
 # Data collection and preparation
 The data mining part is heavily inspired by [Tawsif's similar project](https://github.com/tawsifkhan/Syrian-Refugee-Twitter-Data-Analysis).
+# Visualization
+
+
+# TODO list
+- [ ] Update the sentimental scores (histos for positive, negative and neutral scores) (Xia)
+- [ ] Stitch everything together (Manushi)
+- [ ] Update map color scheme; create legend (Jon)
