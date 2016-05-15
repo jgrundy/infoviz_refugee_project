@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Syrian Asylum Location</title>
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
+<style>
+    @import url(//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css);
+
+    #map {
+      width: 960px;
+      height: 500px;
+    }
+
+    path {
+      fill-opacity: 0;
+      stroke-opacity: 0;
+    }
+
+    path:hover {
+      fill: brown;
+      fill-opacity: .7;
+    }
+</style>
+<body>
+    <p id="map">
+</body>
+<script>
+    var map = new L.Map("map", {center: [33.642063, -13.535156], zoom: 2})
+        .addLayer(new L.TileLayer("https://api.mapbox.com/styles/v1/jgrundy/cio65te3z000fahncwkuit0vk/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamdydW5keSIsImEiOiJjaW81YzFkOXUwMXNodmlsemp6MW5kOWV0In0.EOubM7GaIse7NbHkrezkEw"));
+
+    var svg = d3.select(map.getPanes().overlayPane).append("svg"),
+        g = svg.append("g").attr("class", "leaflet-zoom-hide");
+    
+    //Load the countries data
+    d3.json("countries_joined.geojson", function(error, collection) {
+      if (error) throw error;
+
+      var transform = d3.geo.transform({point: projectPoint}),
+          path = d3.geo.path().projection(transform);
+
+      var feature = g.selectAll("path")
+          .data(collection.features)
+        .enter().append("path");
+
+      map.on("viewreset", reset);
+      reset();
+
+      // Reposition the SVG to cover the features.
+      function reset() {
+        var bounds = path.bounds(collection),
+            topLeft = bounds[0],
+            bottomRight = bounds[1];
+
+        svg .attr("width", bottomRight[0] - topLeft[0])
+            .attr("height", bottomRight[1] - topLeft[1])
+            .style("left", topLeft[0] + "px")
+            .style("top", topLeft[1] + "px");
+
+        g   .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
+
+        feature.attr("d", path);
+      }
+
+      // Use Leaflet to implement a D3 geometric transformation.
+      function projectPoint(x, y) {
+        var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+        this.stream.point(point.x, point.y);
+      }
+    });
+</script>
