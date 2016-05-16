@@ -19,7 +19,7 @@
             width: 670px;
             height: 500px;
             top: -280;
-            left: -43;
+            left: -25;
             margin: auto;
             text-align: center;
         }
@@ -89,6 +89,9 @@
         <div id="boxes">
          <svg width="1400" height="300">
              <g id="keyword"></g>
+             <g id="details"></g>
+             <p id="keywordDetails"></p>
+             <p id="countryDetails"></p>
             </svg>   
         </div>
         <div id="map"></div>
@@ -115,30 +118,23 @@
            .attr("fill", "red");
         
         var div2 = d3.select("#keyword");
+        var div3 = d3.select("#details");
+        var div4 = d3.select("#keywordDetails");
+        var div5 = d3.select("#countryDetails");
         
-        var keyPhrases = div2.append("rect")
-                             .attr("x", 45)
+        var keyPhrases = div3.append("rect")
+                             .attr("x", 15)
                              .attr("y", 25)
-                             .attr("width", 200)
+                             .attr("width", 275)
                              .attr("height", 400)
-                             .attr("fill", "green");
+                             .attr("fill", "white");
         
-        var keywordText = div2.append('text').text('Keywords List')
-                .attr('x', 90)
-                .attr('y', 50)
-                .attr('fill', 'white');
+        
+        var keywordText = div2.append('text').text('Keywords List and Country Details')
+                .attr('x', 40)
+                .attr('y', 12)
+                .attr('fill', 'black');
 
-        var countryDetails = div2.append("rect")
-                             .attr("x", 995)
-                             .attr("y", 25)
-                             .attr("width", 400)
-                             .attr("height", 400)
-                             .attr("fill", "green");
-        
-        var countryText = div2.append('text').text('Country Details')
-                .attr('x', 1040)
-                .attr('y', 50)
-                .attr('fill', 'white');
     </script>
      <script>
         //Map work
@@ -190,7 +186,48 @@
 
       var feature = g.selectAll("path")
           .data(collection.features)
-        .enter().append("path");
+          .enter().append("path")
+          .on("click", function(d, i) {
+              
+                        d3.select("#details").append("rect")
+                             .attr("x", 20)
+                             .attr("y", 25)
+                             .attr("width", 275)
+                             .attr("height", 400)
+                             .attr("fill", cardFill(d));
+              
+                        //Function that determines color of the details card
+                        function cardFill(d){
+                                if(d.properties["Average_of"] < 0)
+                                        {return "red";}
+                                else if(d.properties["Average_of"] === 0)
+                                        {return "gold";}
+                                else if(d.properties["Average_of"] > 0)
+                                        {return "green";}
+                        };
+              
+                        d3.select("#details").append('text').text(d.properties["NAME"])
+                                          .attr("x", 35)
+                                          .attr("y", 60)
+                                          .attr('font-weight', 900)
+                                          .attr('text-decoration', 'underline')
+                                          .attr('fill', 'white');
+              
+                        d3.select("#details").append('text').text("Country Population: "+d.properties["Pop2014"])
+                                          .attr("x", 35)
+                                          .attr("y", 90)
+                                          .attr('fill', 'white');
+          
+                        d3.select("#details").append('text').text("2016 Refugee Inflow: "+d.properties["Asylum2016"])
+                                          .attr("x", 35)
+                                          .attr("y", 120)
+                                          .attr('fill', 'white');
+              
+        
+                       d3.select("#details").append('text').text("Total Number of English Tweets: "+d.properties["total_twee"])
+                                          .attr("x", 35)
+                                          .attr("y", 150)
+                                          .attr('fill', 'white')});
 
       map.on("viewreset", reset);
       reset();
