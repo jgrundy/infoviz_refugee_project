@@ -12,13 +12,13 @@
         
         #boxes {
             width: 1200px;
-            height: 300px;
+            height: 500px;
         }
 
         #map {
             width: 670px;
             height: 500px;
-            top: -280;
+            top: -500;
             left: -25;
             margin: auto;
             text-align: center;
@@ -87,7 +87,7 @@
             </svg>   
         </div>
         <div id="boxes">
-         <svg width="1400" height="300">
+         <svg width="1400" height="500">
              <g id="keyword"></g>
              <g id="details"></g>
              <p id="keywordDetails"></p>
@@ -109,7 +109,7 @@
            .attr("r", 10)
            .attr("cx",560)
            .attr("cy", 15)
-           .attr("fill", "gold");
+           .attr("fill", "#e6b800");
         
         var hostile = div1.append("circle")
            .attr("r", 10)
@@ -126,13 +126,14 @@
                              .attr("x", 15)
                              .attr("y", 25)
                              .attr("width", 275)
-                             .attr("height", 400)
+                             .attr("height", 900)
                              .attr("fill", "white");
         
         
         var keywordText = div2.append('text').text('Keywords List and Country Details')
                 .attr('x', 40)
                 .attr('y', 12)
+                .attr('font-weight', 650)
                 .attr('fill', 'black');
 
     </script>
@@ -196,39 +197,144 @@
                              .attr("height", 400)
                              .attr("fill", cardFill(d));
               
-                        //Function that determines color of the details card
-                        function cardFill(d){
-                                if(d.properties["Average_of"] < 0)
-                                        {return "red";}
-                                else if(d.properties["Average_of"] === 0)
-                                        {return "gold";}
-                                else if(d.properties["Average_of"] > 0)
-                                        {return "green";}
-                        };
-              
                         d3.select("#details").append('text').text(d.properties["NAME"])
                                           .attr("x", 35)
-                                          .attr("y", 60)
+                                          .attr("y", 70)
                                           .attr('font-weight', 900)
                                           .attr('text-decoration', 'underline')
                                           .attr('fill', 'white');
               
-                        d3.select("#details").append('text').text("Country Population: "+d.properties["Pop2014"])
+                        d3.select("#details").append('text').text(population(d))
                                           .attr("x", 35)
-                                          .attr("y", 90)
+                                          .attr("y", 100)
                                           .attr('fill', 'white');
           
-                        d3.select("#details").append('text').text("2016 Refugee Inflow: "+d.properties["Asylum2016"])
+                        d3.select("#details").append('text').text(refugee(d))
                                           .attr("x", 35)
-                                          .attr("y", 120)
+                                          .attr("y", 130)
+                                          .attr('fill', 'white');
+        
+                       d3.select("#details").append('text').text(tweets(d))
+                                          .attr("x", 35)
+                                          .attr("y", 160)
+                                          .attr('fill', 'white')
+                       
+                       d3.select("#details").append('text').text("Keywords")
+                                          .attr("x", 35)
+                                          .attr("y", 210)
+                                          .attr('font-weight', 900)
+                                          .attr('text-decoration', 'underline')
                                           .attr('fill', 'white');
               
-        
-                       d3.select("#details").append('text').text("Total Number of English Tweets: "+d.properties["total_twee"])
+                      d3.select("#details").append('text').text(kw1(d))
                                           .attr("x", 35)
-                                          .attr("y", 150)
-                                          .attr('fill', 'white')});
-
+                                          .attr("y", 240)
+                                          .attr('fill', 'white');
+              
+                     d3.select("#details").append('text').text(kw2(d))
+                                          .attr("x", 35)
+                                          .attr("y", 270)
+                                          .attr('fill', 'white');
+                    
+                    d3.select("#details").append('text').text(kw3(d))
+                                          .attr("x", 35)
+                                          .attr("y", 300)
+                                          .attr('fill', 'white');
+              
+                    d3.select("#details").append('text').text(kw4(d))
+                                          .attr("x", 35)
+                                          .attr("y", 330)
+                                          .attr('fill', 'white');
+              
+                    d3.select("#details").append('text').text(kw5(d))
+                                          .attr("x", 35)
+                                          .attr("y", 360)
+                                          .attr('fill', 'white');
+                
+              
+              
+                      //Function that determines color of the details card
+                        function cardFill(d){
+                                //To check if valid data exists or not
+                                if(d.properties["Pop2014"] === 0)
+                                        {return "grey";}
+                                else if(d.properties["Average_of"] < -0.01)
+                                        {return "red";}
+                                else if(d.properties["Average_of"] > -0.01 && d.properties["Average_of"] < 0.01)
+                                        {return "#e6b800";}
+                                else if(d.properties["Average_of"] > 0.01)
+                                        {return "green";}
+                        };
+              
+                    //Returns Population of Country
+                      function population(d){
+                            if(d.properties["Pop2014"] === 0) 
+                                {return "No Data Available";} 
+                            else 
+                                {return "Country Population: "+d.properties["Pop2014"];}
+                        };
+              
+                    //Returns Refugee count in 2016 of Country
+                      function refugee(d){
+                            if(d.properties["Asylum2016"] === 0) 
+                                {return "";} 
+                            else 
+                                {return "2016 Refugee Inflow: "+d.properties["Asylum2016"];}
+                        };
+              
+                    //Returns Total Number of Tweets
+                      function tweets(d){
+                            if(d.properties["total_twee"] === 0) 
+                                {return "";} 
+                            else 
+                                {return "Total Number of English Tweets: "+d.properties["total_twee"];}
+                        };
+              
+                    //Returns First Keyword
+                      function kw1(d){
+                            if(d.properties["kw1"] === undefined) 
+                                {return "No Data Available";} 
+                            else 
+                                {return "1. "+d.properties["kw1"];}
+                        };
+              
+                    //Returns Second Keyword
+                      function kw2(d){
+                            if(d.properties["kw2"] === undefined) 
+                                {return "";} 
+                            else 
+                                {return "2. "+d.properties["kw2"];}
+                        };
+              
+                    //Returns Third Keyword
+                      function kw3(d){
+                            if(d.properties["kw3"] === undefined) 
+                                {return "";} 
+                            else 
+                                {return "3. "+d.properties["kw3"];}
+                        };
+              
+                    //Returns Fourth Keyword
+                      function kw4(d){
+                            if(d.properties["kw4"] === undefined) 
+                                {return "";} 
+                            else 
+                                {return "4. "+d.properties["kw4"];}
+                        };
+              
+                    //Returns Fifth Keyword
+                      function kw5(d){
+                            if(d.properties["kw5"] === undefined) 
+                                {return "";} 
+                            else 
+                                {return "5. "+d.properties["kw5"];}
+                        };
+          
+          
+          
+          
+          });
+    
       map.on("viewreset", reset);
       reset();
 
