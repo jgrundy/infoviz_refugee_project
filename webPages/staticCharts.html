@@ -37,7 +37,7 @@
     <body>
         <div>
             <h1>Attitudes regarding Syrian Refugees: Sentiment Analysis Using Twitter</h1>
-            <a class="link" href="pageLayoutMap.html">Click to View Map</a> 
+            <a class="link" href="https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master/webPages/pageLayoutMap.html">Click to View Map</a> 
         </div>
         <div>
             <svg width="1100" height="35">
@@ -87,16 +87,16 @@
     width = 500,
     height = 400;
 
-// setup x 
-var xValue = function(d) {return d.asylum2016;}, // data -> value
-    xScale = d3.scale.linear().range([0, width]), // value -> display
-    xMap = function(d) { return xScale(xValue(d));}, // data -> display
+// set x 
+var xValue = function(d) {return d.asylum2016;}, 
+    xScale = d3.scale.linear().range([0, width]), 
+    xMap = function(d) { return xScale(xValue(d));}, 
     xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 
-// setup y
-var yValue = function(d) { return d.sentiment;}, // data -> value
-    yScale = d3.scale.linear().range([height, 0]), // value -> display
-    yMap = function(d) { return yScale(yValue(d));}, // data -> display
+// set y
+var yValue = function(d) { return d.sentiment;}, 
+    yScale = d3.scale.linear().range([height, 0]), 
+    yMap = function(d) { return yScale(yValue(d));},
     yAxis = d3.svg.axis().scale(yScale).orient("left");
 
 // add the graph canvas to the body of the webpage
@@ -144,7 +144,7 @@ d3.csv("https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master
       .style("text-anchor", "end")
       .text("Sentiment");
     
-    //title
+    //Add Title
     svg.append("text")
         .attr("x", (width / 2))             
         .attr("y", 0 - (margin.top / 2))
@@ -152,6 +152,14 @@ d3.csv("https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master
         .style("font-size", "20px") 
         .style("font-weight", 800) 
         .text("Sentiment Score vs Refugee Count per Country");
+    
+  /*      //Add Note
+    svg.append("text")
+        .attr("x", (width / 2) - 20)             
+        .attr("y", 450)
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .text("Sentiment Score vs Refugee Count per Country");*/
 
   // draw dots
   svg.selectAll(".dot")
@@ -178,28 +186,42 @@ d3.csv("https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master
                     });
 });  
     </script>
+    <br>
+    NOTE: Germany being an outlier taking 27146 Syrian refugees so far in 2016, has been deliberately excluded from the scatter plot.
     <script>
+        //For pie chart
+        
         var w = 350;
         var h = 350;
         var r = h/2;
-    var color = d3.scale.ordinal()
-        .range(["red", "#e6b800", "royalblue"]);
+        var color = d3.scale.ordinal()
+                      .range(["red", "#e6b800", "royalblue"]);
 
-var data = [{"label":"Hostile", "value":28.57}, 
-		          {"label":"Neutral", "value":28.57}, 
-		          {"label":"Welcoming", "value":42.85}];
+        var data = [{"label":"Hostile", "value":28.57}, 
+		            {"label":"Neutral", "value":28.57}, 
+		            {"label":"Welcoming", "value":42.85}];
 
 
-var vis = d3.select('#pie').append("svg:svg").data([data]).attr("width", w+900).attr("height", h+900).append("svg:g").attr("transform", "translate(1000,250)");
-var pie = d3.layout.pie().value(function(d){return d.value;});
+        var vis = d3.select('#pie')
+                    .append("svg")
+                    .data([data])
+                    .attr("width", w+900)
+                    .attr("height", h+900)
+                    .append("svg:g")
+                    .attr("transform", "translate(1000,250)");
 
-// declare an arc generator function
-var arc = d3.svg.arc().outerRadius(r);
+        var pie = d3.layout.pie().value(function(d){return d.value;});
 
-// select paths, use arc generator to draw
-var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
-arcs.append("svg:path")
-    .attr("fill", function(d, i){
+        // declare an arc generator function
+        var arc = d3.svg.arc().outerRadius(r);
+
+        // select paths, use arc generator to draw
+        var arcs = vis.selectAll("g.slice").data(pie).enter()
+                      .append("svg:g")
+                      .attr("class", "slice");
+        
+        arcs.append("svg:path")
+            .attr("fill", function(d, i){
         return color(i);
     })
     .attr("d", function (d) {
@@ -208,14 +230,17 @@ arcs.append("svg:path")
         return arc(d);
     });
 
-// add the text
-arcs.append("svg:text").attr("transform", function(d){
-			d.innerRadius = 0;
+        // add the text
+        arcs.append("svg:text").attr("transform", function(d){
+            d.innerRadius = 0;
 			d.outerRadius = r;
-    return "translate(" + arc.centroid(d) + ")";}).attr("text-anchor", "middle").style("font-size", "16px").style("fill", "white").text( function(d, i) {
-    return data[i].label +" ("+ data[i].value +" %)";}
-		);
-        
+            return "translate(" + arc.centroid(d) + ")";}).attr("text-anchor", "middle")
+                                                          .style("font-size", "16px")
+                                                          .style("fill", "white")
+                                                          .text( function(d, i) {
+                                                                return data[i].label +" ("+ data[i].value +" %)";}
+		                                              );
+        //Add Title
         arcs.append("text")
         .attr("x", 50)             
         .attr("y", -205)

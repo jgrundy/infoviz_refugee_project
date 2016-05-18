@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Refugees</title>
+        <title>Attitides Towards Syrian Refugees</title>
     </head>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
@@ -9,26 +9,27 @@
         h1 {
             text-align: center;
         }
-        
-         
+
+
         a.link {
             float: right;
         }
-        
+
         .sentiment {
              margin: auto;
             text-align: center;
         }
-        
+
         #card {
             width: 700px;
-            height: 700px;
+            height: 500px;
         }
 
         #map {
             width: 950px;
             height: 500px;
-            top: -680;
+            top: -480;
+            bottom: 600;
             left: 150;
             margin: auto;
             text-align: center;
@@ -43,7 +44,7 @@
             fill: brown;
             fill-opacity: .7;
         }
-          
+
         .info {
             padding: 6px 8px;
             font: Helvetica, sans-serif;
@@ -52,7 +53,7 @@
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border-radius: 5px;
         }
-        
+
         .info h4 {
             margin: 0 0 5px;
         }
@@ -62,7 +63,7 @@
             line-height: 18px;
             color: #555;
         }
-    
+
         .legend i {
             width: 18px;
             height: 18px;
@@ -70,17 +71,17 @@
             margin-right: 8px;
             opacity: 0.7;
         }
-        
+
         body {
             position: relative;
             font: Helvetica, sans-serif;
         }
-        
+
     </style>
     <body id="content">
         <div>
             <h1>Attitudes regarding Syrian Refugees: Sentiment Analysis Using Twitter</h1>
-            <a class="link" href="staticCharts.html">Click to View Static Charts</a> 
+            <a class="link" href="https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master/webPages/staticCharts.html">Click to View Static Charts</a> 
         </div>
         <div>
             <svg width="1100" height="35">
@@ -95,7 +96,7 @@
                       dy="20"
                       style="font-size: 20">Hostile</text>
                 </g>
-               
+
             </svg> 
         </div>
         <div id="card">
@@ -105,57 +106,58 @@
         </svg>
         </div>
         <div id="map"></div>
-        <!--<div id="scatter"></div>-->
-        <div id="tooltip"></div>    
     </body>
     <script>
+        //Adding the legend circle for Welcoming
         var div1 = d3.select("#sentiment");
         var welcoming = div1.append("circle")
            .attr("r", 10)
            .attr("cx",430)
            .attr("cy", 15)
            .attr("fill", "royalblue");
-
+        
+        //Adding the legend circle for Neutral
         var neutral = div1.append("circle")
            .attr("r", 10)
            .attr("cx",560)
            .attr("cy", 15)
            .attr("fill", "#e6b800");
         
+        //Adding the legend circle for Hostile
         var hostile = div1.append("circle")
            .attr("r", 10)
            .attr("cx",670)
            .attr("cy", 15)
            .attr("fill", "red");
-        
+
         var div2 = d3.select("#keyword");
         var div3 = d3.select("#details");
-        
+
         var keyPhrases = div3.append("rect")
                              .attr("x", 15)
                              .attr("y", 35)
                              .attr("width", 275)
                              .attr("height", 900)
                              .attr("fill", "white");
-        
-        
+
+
         var keywordText = div2.append('text').text('Keywords List and Country Details')
                               .attr('x', 70)
                               .attr('y', 28)
                               .attr('font-weight', 800)
                               .attr('fill', 'black');
-    
-           
-        
-        
+
+
+
+
     </script>
-    //Map work
+
     <script>
-        
-        
+           //Map work 
+
         var map = new L.Map("map", {center: [33.642063, -13.535156], zoom: 2})
         .addLayer(new L.TileLayer("https://api.mapbox.com/styles/v1/jgrundy/cio65te3z000fahncwkuit0vk/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamdydW5keSIsImEiOiJjaW81YzFkOXUwMXNodmlsemp6MW5kOWV0In0.EOubM7GaIse7NbHkrezkEw"));
-         
+
          //Create informational comment
         var info = L.control("topright");
         info.onAdd = function (map) {
@@ -166,22 +168,23 @@
         info.update = function (props) {
         this._div.innerHTML = '<h4>Click on a country for more information</h4>'
     };
-         
-    info.addTo(map);
 
-    var svg = d3.select(map.getPanes().overlayPane).append("svg"),
+        info.addTo(map);
+
+        var svg = d3.select(map.getPanes().overlayPane).append("svg"),
         g = svg.append("g").attr("class", "leaflet-zoom-hide");
-    
-   //Create the legend
-    function getColor(d) {
-        return d > 1999 ? '#3f007d' :
-               d > 199  ? '#54278f' :
-               d > 1.9  ? '#6a51a3' :
-               d > .9  ? '#807dba' :
+
+        //Create the legend
+        function getColor(d) {
+                return d > 1999 ? '#3f007d' :
+                d > 199  ? '#54278f' :
+                d > 1.9  ? '#6a51a3' :
+                d > .9  ? '#807dba' :
                         'grey';
-    }
-    var legend = L.control({position: 'bottomleft'});
-    legend.onAdd = function (map) {
+        }
+        
+        var legend = L.control({position: 'bottomleft'});
+        legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend'),
             grades = [0, 1, 2, 200, 2000];
 
@@ -201,9 +204,10 @@
             '<i style="background:' + getColor(grades[4]) + '"></i> ' +
                 grades[4] + (grades[4 + 1] ? '&ndash;' + grades[4 + 1] + ' refugees<br>' : '+ refugees'); 
         return div;
-    };
-    legend.addTo(map);
-    
+        
+        };
+        legend.addTo(map);
+
     //Load the countries data
     d3.json("https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master/frontEnd/countries_joined.geojson", function(error, collection) {
       if (error) throw error;
@@ -215,70 +219,70 @@
           .data(collection.features)
           .enter().append("path")
           .on("click", function(d, i) {
-              
+
                         d3.select("#details").append("rect")
                              .attr("x", 50)
                              .attr("y", 65)
                              .attr("width", 275)
                              .attr("height", 400)
                              .attr("fill", cardFill(d));
-              
+
                         d3.select("#details").append('text').text(d.properties["NAME"])
                                           .attr("x", 65)
                                           .attr("y", 100)
                                           .attr('font-weight', 900)
                                           .attr('text-decoration', 'underline')
                                           .attr('fill', 'white');
-              
+
                         d3.select("#details").append('text').text(population(d))
                                           .attr("x", 65)
                                           .attr("y", 130)
                                           .attr('fill', 'white');
-          
+
                         d3.select("#details").append('text').text(refugee(d))
                                           .attr("x", 65)
                                           .attr("y", 160)
                                           .attr('fill', 'white');
-        
+
                        d3.select("#details").append('text').text(tweets(d))
                                           .attr("x", 65)
                                           .attr("y", 190)
                                           .attr('fill', 'white')
-                       
+
                        d3.select("#details").append('text').text("Keywords")
                                           .attr("x", 65)
                                           .attr("y", 240)
                                           .attr('font-weight', 900)
                                           .attr('text-decoration', 'underline')
                                           .attr('fill', 'white');
-              
+
                       d3.select("#details").append('text').text(kw1(d))
                                           .attr("x", 65)
                                           .attr("y", 270)
                                           .attr('fill', 'white');
-              
+
                      d3.select("#details").append('text').text(kw2(d))
                                           .attr("x", 65)
                                           .attr("y", 300)
                                           .attr('fill', 'white');
-                    
+
                     d3.select("#details").append('text').text(kw3(d))
                                           .attr("x", 65)
                                           .attr("y", 330)
                                           .attr('fill', 'white');
-              
+
                     d3.select("#details").append('text').text(kw4(d))
                                           .attr("x", 65)
                                           .attr("y", 360)
                                           .attr('fill', 'white');
-              
+
                     d3.select("#details").append('text').text(kw5(d))
                                           .attr("x", 65)
                                           .attr("y", 390)
                                           .attr('fill', 'white');
-                
-              
-              
+
+
+
                       //Function that determines color of the details card
                         function cardFill(d){
                                 //To check if valid data exists or not
@@ -291,7 +295,7 @@
                                 else if(d.properties["Average_of"] > 0.01)
                                         {return "royalblue";}
                         };
-              
+
                     //Returns Population of Country
                       function population(d){
                             if(d.properties["Pop2014"] === 0) 
@@ -299,7 +303,7 @@
                             else 
                                 {return "Country Population: "+d.properties["Pop2014"];}
                         };
-              
+
                     //Returns Refugee count in 2016 of Country
                       function refugee(d){
                             if(d.properties["Asylum2016"] === 0) 
@@ -307,7 +311,7 @@
                             else 
                                 {return "2016 Refugee Inflow: "+d.properties["Asylum2016"];}
                         };
-              
+
                     //Returns Total Number of Tweets
                       function tweets(d){
                             if(d.properties["total_twee"] === 0) 
@@ -315,7 +319,7 @@
                             else 
                                 {return "Total Number of English Tweets: "+d.properties["total_twee"];}
                         };
-              
+
                     //Returns First Keyword
                       function kw1(d){
                             if(d.properties["kw1"] === undefined) 
@@ -323,7 +327,7 @@
                             else 
                                 {return "1. "+d.properties["kw1"];}
                         };
-              
+
                     //Returns Second Keyword
                       function kw2(d){
                             if(d.properties["kw2"] === undefined) 
@@ -331,7 +335,7 @@
                             else 
                                 {return "2. "+d.properties["kw2"];}
                         };
-              
+
                     //Returns Third Keyword
                       function kw3(d){
                             if(d.properties["kw3"] === undefined) 
@@ -339,7 +343,7 @@
                             else 
                                 {return "3. "+d.properties["kw3"];}
                         };
-              
+
                     //Returns Fourth Keyword
                       function kw4(d){
                             if(d.properties["kw4"] === undefined) 
@@ -347,7 +351,7 @@
                             else 
                                 {return "4. "+d.properties["kw4"];}
                         };
-              
+
                     //Returns Fifth Keyword
                       function kw5(d){
                             if(d.properties["kw5"] === undefined) 
@@ -355,12 +359,12 @@
                             else 
                                 {return "5. "+d.properties["kw5"];}
                         };
-          
-          
-          
-          
+
+
+
+
           });
-    
+
       map.on("viewreset", reset);
       reset();
 
@@ -374,7 +378,7 @@
             .attr("height", bottomRight[1] - topLeft[1])
             .style("left", topLeft[0] + "px")
             .style("top", topLeft[1] + "px");
-        
+
         g   .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
         feature.attr("d", path);
       }
@@ -385,6 +389,6 @@
         this.stream.point(point.x, point.y);
       }
     });
-         
-    </script>
-    </html>
+
+</script>
+</html>
