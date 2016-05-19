@@ -82,7 +82,7 @@
            .attr("cx",670)
            .attr("cy", 15)
            .attr("fill", "red");
-    var margin = {top: 80, right: 20, bottom: 30, left: 140},
+    var margin = {top: 80, right: 20, bottom: 40, left: 140},
     width = 450,
     height = 350;
 
@@ -121,19 +121,33 @@ d3.csv("https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master
 
   // x-axis
   svg.append("g")
-      .attr("class", "x axis")
+      .attr("class", "xaxis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
     .append("text")
       .attr("class", "label")
       .attr("x", width)
-      .attr("y", -6)
+      .attr("y", -4)
+      .style("text-anchor", "end")
+    
+    svg.selectAll(".xaxis text")  // select all the text elements for the xaxis
+          .attr("transform", function(d) {
+             return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
+         });
+    
+    svg.append("g")
+      .attr("class", "xaxis")
+      .attr("transform", "translate(0," + height + ")")
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width)
+      .attr("y", -4)
       .style("text-anchor", "end")
       .text("Refugee Count");
 
   // y-axis
   svg.append("g")
-      .attr("class", "y axis")
+      .attr("class", "yaxis")
       .call(yAxis)
     .append("text")
       .attr("class", "label")
