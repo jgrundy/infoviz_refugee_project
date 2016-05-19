@@ -1,5 +1,4 @@
 <html>
-  <!--  <head>Scatter</head>-->
     <style>
         h1 {
             text-align: center;
@@ -119,7 +118,7 @@ d3.csv("https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master
   xScale.domain([-10, 1300]);
   yScale.domain([-0.099, 0.115]);
 
-  // x-axis
+  // x-axis Values
   svg.append("g")
       .attr("class", "xaxis")
       .attr("transform", "translate(0," + height + ")")
@@ -135,6 +134,7 @@ d3.csv("https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master
              return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
          });
     
+    //x-axis Label
     svg.append("g")
       .attr("class", "xaxis")
       .attr("transform", "translate(0," + height + ")")
@@ -180,6 +180,7 @@ d3.csv("https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master
                                         {return "#e6b800";}
                                 else if(d.sentiment > 0.01)
                                         {return "royalblue";}})
+        //Enabling tooltip
         .on('mouseenter', function(d, i) { d3.select("#tooltip").style({top: d3.event.clientY + 5, left: d3.event.clientX + 5, visibility: "visible", opacity: 1 })
                     d3.select("#tooltip").text(d.country);
                     highlight(d.country);                               
