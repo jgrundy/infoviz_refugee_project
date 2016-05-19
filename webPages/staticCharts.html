@@ -12,12 +12,11 @@
         
         .sentiment {
              margin: auto;
-            text-align: center;
+             text-align: center;
         }
         
-        body {
-            position: relative;
-            font: Helvetica, sans-serif;
+        #content {
+            font: 14px/18px Arial, Helvetica, sans-serif;
         }
         
         #tooltip {
@@ -28,13 +27,13 @@
                 padding: 5;
                 border: solid 1px black;
                 visibility: hidden;
-                opacity: 0
-                transition: all 0.5s
+                opacity: 0;
+                transition: all 0.5s;
             }
 
 </style>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <body>
+    <body id="content">
         <div>
             <h1>Attitudes regarding Syrian Refugees: Sentiment Analysis Using Twitter</h1>
             <a class="link" href="pageLayoutMap.html">Click to View Map</a> 
@@ -84,8 +83,8 @@
            .attr("cy", 15)
            .attr("fill", "red");
     var margin = {top: 80, right: 20, bottom: 30, left: 140},
-    width = 500,
-    height = 400;
+    width = 450,
+    height = 350;
 
 // set x 
 var xValue = function(d) {return d.asylum2016;}, 
@@ -146,22 +145,14 @@ d3.csv("https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master
     
     //Add Title
     svg.append("text")
-        .attr("x", (width / 2))             
+        .attr("x", (width / 2) - 20)             
         .attr("y", 0 - (margin.top / 2))
         .attr("text-anchor", "middle")  
         .style("font-size", "20px") 
         .style("font-weight", 800) 
         .text("Sentiment Score vs Refugee Count per Country");
     
-  /*      //Add Note
-    svg.append("text")
-        .attr("x", (width / 2) - 20)             
-        .attr("y", 450)
-        .attr("text-anchor", "middle")  
-        .style("font-size", "16px") 
-        .text("Sentiment Score vs Refugee Count per Country");*/
-
-  // draw dots
+   // draw dots
   svg.selectAll(".dot")
       .data(data)
     .enter().append("circle")
@@ -186,7 +177,6 @@ d3.csv("https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master
                     });
 });  
     </script>
-    <br>
     NOTE: Germany being an outlier taking 27146 Syrian refugees so far in 2016, has been deliberately excluded from the scatter plot.
     <script>
         //For pie chart
@@ -242,7 +232,7 @@ d3.csv("https://raw.githubusercontent.com/jgrundy/infoviz_refugee_project/master
 		                                              );
         //Add Title
         arcs.append("text")
-        .attr("x", 50)             
+        .attr("x", 5)             
         .attr("y", -205)
         .attr("text-anchor", "middle")  
         .style("font-size", "20px") 

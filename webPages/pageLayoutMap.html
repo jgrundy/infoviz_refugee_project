@@ -21,16 +21,16 @@
         }
 
         #card {
-            width: 700px;
+            width: 400px;
             height: 500px;
         }
 
         #map {
-            width: 950px;
+            width: 850px;
             height: 500px;
             top: -480;
             bottom: 600;
-            left: 150;
+            left: 200;
             margin: auto;
             text-align: center;
         }
@@ -72,9 +72,8 @@
             opacity: 0.7;
         }
 
-        body {
-            position: relative;
-            font: Helvetica, sans-serif;
+        #content {
+            font: 14px/18px Arial, Helvetica, sans-serif;
         }
 
     </style>
@@ -100,7 +99,7 @@
             </svg> 
         </div>
         <div id="card">
-         <svg width="1500" height="500">
+         <svg width="400" height="500">
              <g id="keyword"></g>
              <g id="details"></g>  
         </svg>
@@ -133,6 +132,7 @@
         var div2 = d3.select("#keyword");
         var div3 = d3.select("#details");
 
+        //For the details+keywords card on page landing
         var keyPhrases = div3.append("rect")
                              .attr("x", 15)
                              .attr("y", 35)
@@ -142,8 +142,8 @@
 
 
         var keywordText = div2.append('text').text('Keywords List and Country Details')
-                              .attr('x', 70)
-                              .attr('y', 28)
+                              .attr('x', 40)
+                              .attr('y', 30)
                               .attr('font-weight', 800)
                               .attr('fill', 'black');
 
@@ -219,65 +219,68 @@
           .data(collection.features)
           .enter().append("path")
           .on("click", function(d, i) {
-
+              
+              var cardTop = 20;
+                        
+                        //Setting up the details+keywords card
                         d3.select("#details").append("rect")
-                             .attr("x", 50)
+                             .attr("x", cardTop)
                              .attr("y", 65)
                              .attr("width", 275)
                              .attr("height", 400)
                              .attr("fill", cardFill(d));
 
                         d3.select("#details").append('text').text(d.properties["NAME"])
-                                          .attr("x", 65)
+                                          .attr("x", cardTop+15)
                                           .attr("y", 100)
                                           .attr('font-weight', 900)
                                           .attr('text-decoration', 'underline')
                                           .attr('fill', 'white');
 
                         d3.select("#details").append('text').text(population(d))
-                                          .attr("x", 65)
+                                          .attr("x", cardTop+15)
                                           .attr("y", 130)
                                           .attr('fill', 'white');
 
                         d3.select("#details").append('text').text(refugee(d))
-                                          .attr("x", 65)
+                                          .attr("x", cardTop+15)
                                           .attr("y", 160)
                                           .attr('fill', 'white');
 
                        d3.select("#details").append('text').text(tweets(d))
-                                          .attr("x", 65)
+                                          .attr("x", cardTop+15)
                                           .attr("y", 190)
                                           .attr('fill', 'white')
 
                        d3.select("#details").append('text').text("Keywords")
-                                          .attr("x", 65)
+                                          .attr("x", cardTop+15)
                                           .attr("y", 240)
                                           .attr('font-weight', 900)
                                           .attr('text-decoration', 'underline')
                                           .attr('fill', 'white');
 
                       d3.select("#details").append('text').text(kw1(d))
-                                          .attr("x", 65)
+                                          .attr("x", cardTop+15)
                                           .attr("y", 270)
                                           .attr('fill', 'white');
 
                      d3.select("#details").append('text').text(kw2(d))
-                                          .attr("x", 65)
+                                          .attr("x", cardTop+15)
                                           .attr("y", 300)
                                           .attr('fill', 'white');
 
                     d3.select("#details").append('text').text(kw3(d))
-                                          .attr("x", 65)
+                                          .attr("x", cardTop+15)
                                           .attr("y", 330)
                                           .attr('fill', 'white');
 
                     d3.select("#details").append('text').text(kw4(d))
-                                          .attr("x", 65)
+                                          .attr("x", cardTop+15)
                                           .attr("y", 360)
                                           .attr('fill', 'white');
 
                     d3.select("#details").append('text').text(kw5(d))
-                                          .attr("x", 65)
+                                          .attr("x", cardTop+15)
                                           .attr("y", 390)
                                           .attr('fill', 'white');
 
