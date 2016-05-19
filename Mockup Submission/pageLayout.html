@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <title>Refugees</title>
+    </head>
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+    <body id="content">
+        <div>
+            <h1>Attitudes regarding Syrian Refugees: Sentiment Analysis Using Twitter</h1>
+           
+            <svg width="1100" height="700">
+                <g id="sentiment">
+                    <text dx="450"
+                      dy="20"
+                      style="font-size: 20">Welcoming</text>
+                    <text dx="580"
+                      dy="20"
+                      style="font-size: 20">Neutral</text>
+                    <text dx="690"
+                      dy="20"
+                      style="font-size: 20">Hostile</text>
+                </g>
+            </svg>   
+        </div>
+       <!-- <div>
+            <svg width="1000" height="1200">
+                <g id = "plots">
+                    <text dx="10"
+                      dy="70"
+                      style="font-size: 20">Plots</text>
+                </g>
+            </svg>
+        </div>-->
+    </body>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script type="text/javascript" src="map.js"></script>
+    <script type="text/javascript" src="scatter.js"></script>
+    <script>
+        var div1 = d3.select("#sentiment");
+        var welcoming = div1.append("circle")
+           .attr("r", 10)
+           .attr("cx",430)
+           .attr("cy", 15)
+           .attr("fill", "green");
+
+        var neutral = div1.append("circle")
+           .attr("r", 10)
+           .attr("cx",560)
+           .attr("cy", 15)
+           .attr("fill", "gold");
+        
+        var hostile = div1.append("circle")
+           .attr("r", 10)
+           .attr("cx",670)
+           .attr("cy", 15)
+           .attr("fill", "red");
+        
+        var div2 = d3.select("#map");
+        
+        var keyPhrases = div1.append("rect")
+                             .attr("x", 45)
+                             .attr("y", 125)
+                             .attr("width", 200)
+                             .attr("height", 200)
+                             .attr("fill", "green");
+        
+        var keywordText = div1.append('text').text('Keywords List')
+                .attr('x', 55)
+                .attr('y', 145)
+                .attr('fill', 'white')
+
+        var countryDetails = div1.append("rect")
+                             .attr("x", 895)
+                             .attr("y", 125)
+                             .attr("width", 200)
+                             .attr("height", 200)
+                             .attr("fill", "green");
+        
+        var countryText = div1.append('text').text('Country Details')
+                .attr('x', 905)
+                .attr('y', 145)
+                .attr('fill', 'white')
+
+
+    </script>
+</html>
