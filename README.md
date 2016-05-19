@@ -10,5 +10,5 @@ The data mining part is heavily inspired by [Tawsif's similar project](https://g
 
 # TODO list
 - [x] Update the sentimental scores (histos for positive, negative and neutral scores) (Xia)
-- [ ] Stitch everything together (Manushi)
+- [x] Stitch everything together (Manushi)
 - [x] Update map color scheme; create legend (Jon)
