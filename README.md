@@ -15,12 +15,12 @@ Our visualization includes a choropleth map that indicates number of refugees ac
 * Top five keywords
 
 Additionally, there is a separate static charts page that shows:
-* A scatterplot with all the countries according to their "sentiment score" that is welcoming (blue), neutral (yellow) or hostile (red)
+* A scatterplot with all the countries according to their "sentiment score" that is welcoming :large_blue_circle:, neutral :full_moon: or hostile :red_circle:.
 * A pie chart that groups the countries evaluated based on these three sentiment buckets
 
 **Video**
 
-[**Demo**](http://manushim.github.io/infoviz_refugee_project)
+[**Demo**](http://jgrundy.github.io/infoviz_refugee_project/index.html)
 
 [**Document**](https://docs.google.com/document/d/16RJf_7ufx5GSzzVpJWKNzBSVHa1z0XspTaDNSsN0Iys/edit#)
 
