@@ -1,5 +1,8 @@
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Elixeus/infoviz_refugee_project/blob/master/LICENSE.md)
 # Attitudes Regarding Syrian Refugees: <br/> Sentiment Analysis Using Twitter
+![alt text](https://raw.githubusercontent.com/Elixeus/infoviz_refugee_project/master/main_view.png 'The Main View')
+
+![alt text](https://raw.githubusercontent.com/Elixeus/infoviz_refugee_project/master/scatter_and_py.png 'The Plots')
 **Auhtors**: Jonathan Grundy ([jgrundy](https://github.com/jgrundy)), Manushi Majumdar ([ManushiM](https://github.com/ManushiM)), María Ortiz ([maryooh](https://github.com/maryooh)),  Xia Wang ([Elixeus](https://github.com/Elixeus)).
 ## Description
 According to the UNHCR (United Nations High Commissioner for Refugees), there are close to 5 million “persons of concern” that have been displaced from Syria to five neighboring countries and 9 million total since 2013. European countries especially have seen a massive influx of migrants from Syria in the past 6 months. The project assess what are the prevailing sentiments towards Syrian refugees compared to the number of refugees per country. We are interested in seeing how people are reacting to this influx and seeing if people’s reaction is correlated with the number of refugees arriving. This information could be relevant to international organizations such as UN Refugee Agencies, Amnesty International,  countries’ embassies, and refugee aid agencies.
