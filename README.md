@@ -15,7 +15,7 @@ Our visualization includes a choropleth map that indicates number of refugees ac
 * Top five keywords
 
 Additionally, there is a separate static charts page that shows:
-* A scatterplot with all the countries according to their "sentiment score" that is welcoming (blue), neutral (yellow) or hostile (red)
+* A scatterplot with all the countries according to their "sentiment score" that is welcoming (:large_blue_circle:), neutral (:full_moon:) or hostile (:red_circle:)
 * A pie chart that groups the overall tweets into these three sentiment buckets
 
 **Video**
