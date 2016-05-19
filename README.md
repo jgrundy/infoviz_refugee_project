@@ -10,13 +10,13 @@ According to the UNHCR (United Nations High Commissioner for Refugees), there ar
 Our visualization includes a choropleth map that indicates number of refugees according to color intensity. Clicking on a country will show a card in the different sentiment colors that lists:
 
 * The country population
-* Number of refugees
+* Number of refugees taken so far in 2016
 * Total number of English tweets
 * Top five keywords
 
 Additionally, there is a separate static charts page that shows:
 * A scatterplot with all the countries according to their "sentiment score" that is welcoming :large_blue_circle:, neutral :full_moon: or hostile :red_circle:.
-* A pie chart that groups the overall tweets into these three sentiment buckets
+* A pie chart that groups the countries evaluated based on these three sentiment buckets
 
 **Video**
 
