@@ -20,7 +20,7 @@ Additionally, there is a separate static charts page that shows:
 
 **Video**
 
-[**Demo**](http://jgrundy.github.io/infoviz_refugee_project/index.html)
+[**Demo**](http://manushim.github.io/infoviz_refugee_project/)
 
 [**Document**](https://docs.google.com/document/d/16RJf_7ufx5GSzzVpJWKNzBSVHa1z0XspTaDNSsN0Iys/edit#)
 
