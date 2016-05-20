@@ -18,7 +18,7 @@ Additionally, there is a separate static charts page that shows:
 * A scatterplot with all the countries according to their "sentiment score" that is welcoming :large_blue_circle:, neutral :full_moon: or hostile :red_circle:.
 * A pie chart that groups the countries evaluated based on these three sentiment buckets
 
-**Video**
+[**Video**](https://vimeo.com/167366472)
 
 [**Demo**](http://manushim.github.io/infoviz_refugee_project/)
 
